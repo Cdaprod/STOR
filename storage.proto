@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package storage;
+
+import "core.proto";
+
+// Storage Service Interface
+service StorageService {
+  rpc StoreObject(StoreRequest) returns (StoreResponse);
+  rpc RetrieveObject(RetrieveRequest) returns (ObjectResponse);
+}
+
+// Store Object Request message
+message StoreRequest {
+  core.Metadata metadata = 1;
+  bytes object_data = 2;
+  string bucket_name = 3;
+  string object_name = 4;
+}
+
+// Retrieve Object Request message
+message RetrieveRequest {
+  core.Metadata metadata = 1;
+  string bucket_name = 2;
+  string object_name = 3;
+}
+
+// Store Object Response message
+message StoreResponse {
+  core.BaseResponse base_response = 1;
+  string object_url = 2;
+}
+
+// Retrieve Object Response message
+message ObjectResponse {
+  core.BaseResponse base_response = 1;
+  bytes object_data = 2;
+}
